@@ -1,5 +1,5 @@
 # Release name
-PRODUCT_RELEASE_NAME := deb
+PRODUCT_RELEASE_NAME := debcaf
 
 # Inherit some common stuff.
 $(call inherit-product, vendor/aicp/configs/common_tablet.mk)
@@ -11,13 +11,13 @@ $(call inherit-product, vendor/aicp/configs/telephony.mk)
 $(call inherit-product, vendor/aicp/configs/nfc_enhanced.mk)
 
 # Inherit device configuration
-$(call inherit-product, device/asus/deb/full_deb.mk)
+$(call inherit-product, device/asus/debcaf/full_deb.mk)
 
 ## Device identifier. This must come after all inclusions
-PRODUCT_DEVICE := deb
-PRODUCT_NAME := aicp_deb
+PRODUCT_DEVICE := debcaf
+PRODUCT_NAME := aicp_debcaf
 PRODUCT_BRAND := Google
-PRODUCT_MODEL := Nexus 7 2013 LTE
+PRODUCT_MODEL := Nexus 7 2013 CAF
 PRODUCT_MANUFACTURER := Asus
 
 PRODUCT_RESTRICT_VENDOR_FILES := false

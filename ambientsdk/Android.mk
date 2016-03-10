@@ -1,4 +1,4 @@
-# Copyright (C) 2015 The CyanogenMod Project
+# Copyright (C) 2016 The CyanogenMod Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,16 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-$(call inherit-product, device/oneplus/oneplus2/full_oneplus2.mk)
+include $(CLEAR_VARS)
 
-# Inherit some common AICP stuff.
-$(call inherit-product, vendor/aicp/configs/common.mk)
+LOCAL_MODULE := ambientsdk
+LOCAL_MODULE_CLASS := JAVA_LIBRARIES
+LOCAL_UNINSTALLABLE_MODULE := true
 
-# AICP Device Maintainers
-PRODUCT_BUILD_PROP_OVERRIDES += \
-	DEVICE_MAINTAINERS="Trafalgar Square"
+LOCAL_MAVEN_REPO := https://repo1.maven.org/maven2
+LOCAL_MAVEN_GROUP := com.cyngn.ambient
+LOCAL_MAVEN_ARTIFACT := ambientsdk
+LOCAL_MAVEN_VERSION := 1.4.0
+LOCAL_MAVEN_PACKAGING := aar
 
-# Boot animation
-TARGET_SCREEN_HEIGHT := 1920
-TARGET_SCREEN_WIDTH := 1080
--include vendor/aicp/configs/bootanimation.mk
+include $(BUILD_MAVEN_PREBUILT)
