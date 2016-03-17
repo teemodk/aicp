@@ -1,7 +1,7 @@
 SUPERUSER_EMBEDDED := true
 
 # Common overlay
-PRODUCT_PACKAGE_OVERLAYS += vendor/aicp/overlay/common
+DEVICE_PACKAGE_OVERLAYS += vendor/aicp/overlay/common
 
 # Common dictionaries
 PRODUCT_PACKAGE_OVERLAYS += vendor/aicp/overlay/dictionaries
@@ -45,6 +45,10 @@ PRODUCT_PACKAGES += \
     AicpExtras \
     Screencast
 
+# Exchange support
+PRODUCT_PACKAGES += \
+    Exchange2
+
 # Extra tools in AICP
 PRODUCT_PACKAGES += \
     7z \
@@ -58,6 +62,13 @@ PRODUCT_PACKAGES += \
     vim \
     wget \
     zip
+
+# DU Utils Library
+PRODUCT_PACKAGES += \
+    org.dirtyunicorns.utils
+
+PRODUCT_BOOT_JARS += \
+    org.dirtyunicorns.utils
 
 # Stagefright FFMPEG plugin
 PRODUCT_PACKAGES += \
@@ -187,26 +198,14 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 PRODUCT_COPY_FILES += packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:/system/etc/permissions/android.software.live_wallpaper.xml
 
-# Live lockscreen
-PRODUCT_COPY_FILES += \
-    vendor/aicp/configs/permissions/org.cyanogenmod.livelockscreen.xml:system/etc/permissions/org.cyanogenmod.livelockscreen.xml
-
 # Inherit common build.prop overrides
 -include vendor/aicp/configs/common_versions.mk
 
 # Theme engine
 -include vendor/aicp/configs/themes_common.mk
 
-# CM Platform Library
-PRODUCT_PACKAGES += \
-    org.cyanogenmod.platform-res \
-    org.cyanogenmod.platform \
-    org.cyanogenmod.platform.xml
-
-# CM Hardware Abstraction Framework
-PRODUCT_PACKAGES += \
-    org.cyanogenmod.hardware \
-    org.cyanogenmod.hardware.xml
+# CMSDK
+include vendor/aicp/configs/cmsdk_common.mk
 
 # Debuggable by default
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -230,20 +229,6 @@ PRODUCT_COPY_FILES += \
 # AdAway App
 #PRODUCT_COPY_FILES += \
 #    vendor/aicp/prebuilt/common/app/AdAway.apk:system/priv-app/AdAway/AdAway.apk
-
-ifndef CM_PLATFORM_SDK_VERSION
-  # This is the canonical definition of the SDK version, which defines
-  # the set of APIs and functionality available in the platform.  It
-  # is a single integer that increases monotonically as updates to
-  # the SDK are released.  It should only be incremented when the APIs for
-  # the new release are frozen (so that developers don't write apps against
-  # intermediate builds).
-  CM_PLATFORM_SDK_VERSION := 5
-endif
-
-# CyanogenMod Platform SDK Version
-PRODUCT_PROPERTY_OVERRIDES += \
-  ro.cm.build.version.plat.sdk=$(CM_PLATFORM_SDK_VERSION)
 
 # -include vendor/cyngn/product.mk
 
