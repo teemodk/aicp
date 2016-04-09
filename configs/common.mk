@@ -10,7 +10,7 @@ PRODUCT_PACKAGES += \
     BluetoothExt \
     libemoji \
     LatinImeDictionaryPack \
-    Microbes \
+#    Microbes \
     su \
     procmem \
     procrank \
@@ -124,8 +124,8 @@ PRODUCT_COPY_FILES += \
     vendor/aicp/prebuilt/common/etc/persist.conf:system/etc/persist.conf
 
 PRODUCT_COPY_FILES += \
-    vendor/aicp/prebuilt/common/lib/libmicrobes_jni.so:system/lib/libmicrobes_jni.so \
     vendor/aicp/prebuilt/common/etc/resolv.conf:system/etc/resolv.conf
+#    vendor/aicp/prebuilt/common/lib/libmicrobes_jni.so:system/lib/libmicrobes_jni.so \
 
 # init.d
 PRODUCT_COPY_FILES += \
@@ -228,8 +228,8 @@ PRODUCT_COPY_FILES += \
 #    vendor/aicp/prebuilt/common/app/KernelAdiutor.apk:system/priv-app/KernelAdiutor/KernelAdiutor.apk
 
 # AdAway App
-#PRODUCT_COPY_FILES += \
-#    vendor/aicp/prebuilt/common/app/AdAway.apk:system/priv-app/AdAway/AdAway.apk
+PRODUCT_COPY_FILES += \
+    vendor/aicp/prebuilt/common/app/AdAway.apk:system/priv-app/AdAway/AdAway.apk
 
 # -include vendor/cyngn/product.mk
 
