@@ -1,4 +1,4 @@
-# Copyright (C) 2016 The CyanogenMod Project
+# Copyright (C) 2015 The CyanogenMod Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,28 +12,30 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-$(call inherit-product, device/htc/m7/full_m7.mk)
+# Inherit from those products. Most specific first.
+$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
+# Inherit from oneplus3 device
+$(call inherit-product, device/oneplus/oneplus3/device.mk)
+
+# Inherit some common AICP stuff.
 $(call inherit-product, vendor/aicp/configs/common.mk)
 
 # Inherit telephony stuff
 $(call inherit-product, vendor/aicp/configs/telephony.mk)
 
-# Enhanced NFC
-$(call inherit-product, vendor/aicp/configs/nfc_enhanced.mk)
+PRODUCT_NAME := aicp_oneplus3
+PRODUCT_DEVICE := oneplus3
+PRODUCT_MANUFACTURER := OnePlus
+PRODUCT_BRAND := OnePlus
 
-# Device naming
-PRODUCT_NAME := aicp_m7
+PRODUCT_GMS_CLIENTID_BASE := android-oneplus
 
-# Override build props
-PRODUCT_BUILD_PROP_OVERRIDES += \
-    BUILD_FINGERPRINT="htc/m7_google/m7:5.1/LMY47O.H18/666675:user/release-keys" \
-    BUILD_ID=LMY47O.H18 \
-    PRIVATE_BUILD_DESC="6.04.1700.18 CL536258 release-keys"
 
 # AICP Device Maintainers
 PRODUCT_BUILD_PROP_OVERRIDES += \
-    DEVICE_MAINTAINERS="Brian L (Chezbel), doc HD (semdoc)"
+        DEVICE_MAINTAINERS="genesixxbf3"
 
 # Boot animation
 TARGET_SCREEN_HEIGHT := 1920
