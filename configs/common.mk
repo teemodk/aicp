@@ -108,6 +108,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.dun.override=0
 
+# Backup Services whitelist
+PRODUCT_COPY_FILES += \
+    vendor/aicp/configs/permissions/backup.xml:system/etc/sysconfig/backup.xml
+
 # Backup Tool
 PRODUCT_COPY_FILES += \
     vendor/aicp/prebuilt/bin/backuptool.sh:install/bin/backuptool.sh \
@@ -229,6 +233,10 @@ PRODUCT_COPY_FILES += \
 # AdAway App
 PRODUCT_COPY_FILES += \
     vendor/aicp/prebuilt/common/app/AdAway.apk:system/priv-app/AdAway/AdAway.apk
+
+# AICP memo App
+PRODUCT_COPY_FILES += \
+    vendor/aicp/prebuilt/common/app/AICP-memo.apk:system/priv-app/AICP-memo/AICP-memo.apk
 
 # -include vendor/cyngn/product.mk
 
