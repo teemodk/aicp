@@ -45,7 +45,8 @@ PRODUCT_PACKAGES += \
     AicpExtras \
     Screencast \
     LiveLockScreenService \
-    DataUsageProvider
+    DataUsageProvider \
+    ThemeManagerService
 
 # Exchange support
 PRODUCT_PACKAGES += \
@@ -211,12 +212,6 @@ PRODUCT_COPY_FILES += packages/wallpapers/LivePicker/android.software.live_wallp
 
 # CMSDK
 include vendor/aicp/configs/cmsdk_common.mk
-
-# Debuggable by default
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.service.adb.enable=1 \
-    persist.service.debuggable=1 \
-    persist.sys.usb.config=mtp,adb
 
 # SuperSU
 #PRODUCT_COPY_FILES += \
