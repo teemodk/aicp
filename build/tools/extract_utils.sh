@@ -16,7 +16,9 @@
 #
 
 PRODUCT_COPY_FILES_LIST=()
+PRODUCT_COPY_FILES_HASHES=()
 PRODUCT_PACKAGES_LIST=()
+PRODUCT_PACKAGES_HASHES=()
 PACKAGE_LIST=()
 VENDOR_STATE=-1
 VENDOR_RADIO_STATE=-1
@@ -28,11 +30,22 @@ TMPDIR="/tmp/extractfiles.$$"
 mkdir "$TMPDIR"
 
 #
+# cleanup
+#
+# kill our tmpfiles with fire on exit
+#
+function cleanup() {
+    rm -rf "${TMPDIR:?}"
+}
+
+trap cleanup EXIT INT TERM ERR
+
+#
 # setup_vendor
 #
 # $1: device name
 # $2: vendor name
-# $3: CM root directory
+# $3: AICP root directory
 # $4: is common device - optional, default to false
 # $5: cleanup - optional, default to true
 #
@@ -52,20 +65,20 @@ function setup_vendor() {
         exit 1
     fi
 
-    export CM_ROOT="$3"
-    if [ ! -d "$CM_ROOT" ]; then
-        echo "\$CM_ROOT must be set and valid before including this script!"
+    export AICP_ROOT="$3"
+    if [ ! -d "$AICP_ROOT" ]; then
+        echo "\$AICP_ROOT must be set and valid before including this script!"
         exit 1
     fi
 
     export OUTDIR=vendor/"$VENDOR"/"$DEVICE"
-    if [ ! -d "$CM_ROOT/$OUTDIR" ]; then
-        mkdir -p "$CM_ROOT/$OUTDIR"
+    if [ ! -d "$AICP_ROOT/$OUTDIR" ]; then
+        mkdir -p "$AICP_ROOT/$OUTDIR"
     fi
 
-    export PRODUCTMK="$CM_ROOT"/"$OUTDIR"/"$DEVICE"-vendor.mk
-    export ANDROIDMK="$CM_ROOT"/"$OUTDIR"/Android.mk
-    export BOARDMK="$CM_ROOT"/"$OUTDIR"/BoardConfigVendor.mk
+    export PRODUCTMK="$AICP_ROOT"/"$OUTDIR"/"$DEVICE"-vendor.mk
+    export ANDROIDMK="$AICP_ROOT"/"$OUTDIR"/Android.mk
+    export BOARDMK="$AICP_ROOT"/"$OUTDIR"/BoardConfigVendor.mk
 
     if [ "$4" == "true" ] || [ "$4" == "1" ]; then
         COMMON=1
@@ -236,10 +249,12 @@ function write_packages() {
                 printf 'LOCAL_MULTILIB := %s\n' "$EXTRA"
             fi
         elif [ "$CLASS" = "APPS" ]; then
-            if [ "$EXTRA" = "priv-app" ]; then
-                SRC="$SRC/priv-app"
-            else
-                SRC="$SRC/app"
+            if [ -z "$ARGS" ]; then
+                if [ "$EXTRA" = "priv-app" ]; then
+                    SRC="$SRC/priv-app"
+                else
+                    SRC="$SRC/app"
+                fi
             fi
             printf 'LOCAL_SRC_FILES := %s/%s\n' "$SRC" "$FILE"
             local CERT=platform
@@ -510,16 +525,31 @@ function parse_file_list() {
     fi
 
     PRODUCT_PACKAGES_LIST=()
+    PRODUCT_PACKAGES_HASHES=()
     PRODUCT_COPY_FILES_LIST=()
+    PRODUCT_COPY_FILES_HASHES=()
 
     while read -r line; do
         if [ -z "$line" ]; then continue; fi
 
+        # If the line has a pipe delimiter, a sha1 hash should follow.
+        # This indicates the file should be pinned and not overwritten
+        # when extracting files.
+        local SPLIT=(${line//\|/ })
+        local COUNT=${#SPLIT[@]}
+        local SPEC=${SPLIT[0]}
+        local HASH="x"
+        if [ "$COUNT" -gt "1" ]; then
+            HASH=${SPLIT[1]}
+        fi
+
         # if line starts with a dash, it needs to be packaged
-        if [[ "$line" =~ ^- ]]; then
-            PRODUCT_PACKAGES_LIST+=("${line#-}")
+        if [[ "$SPEC" =~ ^- ]]; then
+            PRODUCT_PACKAGES_LIST+=("${SPEC#-}")
+            PRODUCT_PACKAGES_HASHES+=("$HASH")
         else
-            PRODUCT_COPY_FILES_LIST+=("$line")
+            PRODUCT_COPY_FILES_LIST+=("$SPEC")
+            PRODUCT_COPY_FILES_HASHES+=("$HASH")
         fi
 
     done < <(egrep -v '(^#|^[[:space:]]*$)' "$1" | sort | uniq)
@@ -596,15 +626,15 @@ function get_file() {
 # Convert apk|jar .odex in the corresposing classes.dex
 #
 function oat2dex() {
-    local CM_TARGET="$1"
+    local AICP_TARGET="$1"
     local OEM_TARGET="$2"
     local SRC="$3"
     local TARGET=
     local OAT=
 
     if [ -z "$BAKSMALIJAR" ] || [ -z "$SMALIJAR" ]; then
-        export BAKSMALIJAR="$CM_ROOT"/vendor/cm/build/tools/smali/baksmali.jar
-        export SMALIJAR="$CM_ROOT"/vendor/cm/build/tools/smali/smali.jar
+        export BAKSMALIJAR="$AICP_ROOT"/vendor/aicp/build/tools/smali/baksmali.jar
+        export SMALIJAR="$AICP_ROOT"/vendor/aicp/build/tools/smali/smali.jar
     fi
 
     # Extract existing boot.oats to the temp folder
@@ -621,7 +651,11 @@ function oat2dex() {
         FULLY_DEODEXED=1 && return 0 # system is fully deodexed, return
     fi
 
-    if grep "classes.dex" "$CM_TARGET" >/dev/null; then
+    if [ ! -f "$AICP_TARGET" ]; then
+        return;
+    fi
+
+    if grep "classes.dex" "$AICP_TARGET" >/dev/null; then
         return 0 # target apk|jar is already odexed, return
     fi
 
@@ -632,7 +666,7 @@ function oat2dex() {
 
         if get_file "$OAT" "$TMPDIR" "$SRC"; then
             java -jar "$BAKSMALIJAR" -x -o "$TMPDIR/dexout" -c "$BOOTOAT" -d "$TMPDIR" "$TMPDIR/$(basename "$OAT")"
-        elif [[ "$CM_TARGET" =~ .jar$ ]]; then
+        elif [[ "$AICP_TARGET" =~ .jar$ ]]; then
             # try to extract classes.dex from boot.oat for framework jars
             java -jar "$BAKSMALIJAR" -x -o "$TMPDIR/dexout" -c "$BOOTOAT" -d "$TMPDIR" -e "/$OEM_TARGET" "$BOOTOAT"
         else
@@ -708,16 +742,21 @@ function extract() {
     set +e
 
     local FILELIST=( ${PRODUCT_COPY_FILES_LIST[@]} ${PRODUCT_PACKAGES_LIST[@]} )
+    local HASHLIST=( ${PRODUCT_COPY_FILES_HASHES[@]} ${PRODUCT_PACKAGES_HASHES[@]} )
     local COUNT=${#FILELIST[@]}
     local SRC="$2"
-    local OUTPUT_ROOT="$CM_ROOT"/"$OUTDIR"/proprietary
+    local OUTPUT_ROOT="$AICP_ROOT"/"$OUTDIR"/proprietary
+    local OUTPUT_TMP="$TMPDIR"/"$OUTDIR"/proprietary
+
     if [ "$SRC" = "adb" ]; then
         init_adb_connection
     fi
 
     if [ "$VENDOR_STATE" -eq "0" ]; then
         echo "Cleaning output directory ($OUTPUT_ROOT).."
-        rm -rf "${OUTPUT_ROOT:?}/"*
+        rm -rf "${OUTPUT_TMP:?}"
+        mkdir -p "${OUTPUT_TMP:?}"
+        mv "${OUTPUT_ROOT:?}/"* "${OUTPUT_TMP:?}/"
         VENDOR_STATE=1
     fi
 
@@ -730,11 +769,13 @@ function extract() {
         local SPLIT=(${FILELIST[$i-1]//:/ })
         local FILE="${SPLIT[0]#-}"
         local OUTPUT_DIR="$OUTPUT_ROOT"
+        local TMP_DIR="$OUTPUT_TMP"
         local TARGET=
 
         if [ "$ARGS" = "rootfs" ]; then
             TARGET="$FROM"
             OUTPUT_DIR="$OUTPUT_DIR/rootfs"
+            TMP_DIR="$TMP_DIR/rootfs"
         else
             TARGET="system/$FROM"
             FILE="system/$FILE"
@@ -761,10 +802,13 @@ function extract() {
             fi
         else
             # Try OEM target first
-            cp "$SRC/$FILE" "$DEST"
+            if [ -f "$SRC/$FILE" ]; then
+                cp "$SRC/$FILE" "$DEST"
             # if file does not exist try CM target
-            if [ "$?" != "0" ]; then
+            elif [ -f "$SRC/$TARGET" ]; then
                 cp "$SRC/$TARGET" "$DEST"
+            else
+                printf '    !! file not found in source\n'
             fi
         fi
 
@@ -782,12 +826,39 @@ function extract() {
             fi
         fi
 
-        local TYPE="${DIR##*/}"
-        if [ "$TYPE" = "bin" -o "$TYPE" = "sbin" ]; then
-            chmod 755 "$DEST"
-        else
-            chmod 644 "$DEST"
+        # Check pinned files
+        local HASH="${HASHLIST[$i-1]}"
+        if [ ! -z "$HASH" ] && [ "$HASH" != "x" ]; then
+            local KEEP=""
+            local TMP="$TMP_DIR/$FROM"
+            if [ -f "$TMP" ]; then
+                if [ ! -f "$DEST" ]; then
+                    KEEP="1"
+                else
+                    local DEST_HASH=$(sha1sum "$DEST" | awk '{print $1}' )
+                    if [ "$DEST_HASH" != "$HASH" ]; then
+                        KEEP="1"
+                    fi
+                fi
+                if [ "$KEEP" = "1" ]; then
+                    local TMP_HASH=$(sha1sum "$TMP" | awk '{print $1}' )
+                    if [ "$TMP_HASH" = "$HASH" ]; then
+                        printf '    + (keeping pinned file with hash %s)\n' "$HASH"
+                        cp -p "$TMP" "$DEST"
+                    fi
+                fi
+            fi
         fi
+
+        if [ -f "$DEST" ]; then
+            local TYPE="${DIR##*/}"
+            if [ "$TYPE" = "bin" -o "$TYPE" = "sbin" ]; then
+                chmod 755 "$DEST"
+            else
+                chmod 644 "$DEST"
+            fi
+        fi
+
     done
 
     # Don't allow failing
@@ -814,7 +885,7 @@ function extract_firmware() {
     local FILELIST=( ${PRODUCT_COPY_FILES_LIST[@]} )
     local COUNT=${#FILELIST[@]}
     local SRC="$2"
-    local OUTPUT_DIR="$CM_ROOT"/"$OUTDIR"/radio
+    local OUTPUT_DIR="$AICP_ROOT"/"$OUTDIR"/radio
 
     if [ "$VENDOR_RADIO_STATE" -eq "0" ]; then
         echo "Cleaning firmware output directory ($OUTPUT_DIR).."
