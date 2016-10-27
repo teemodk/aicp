@@ -36,6 +36,7 @@ PRODUCT_MAKEFILES := \
     $(LOCAL_DIR)/hltetmo.mk \
     $(LOCAL_DIR)/i9300.mk \
     $(LOCAL_DIR)/i9305.mk \
+    $(LOCAL_DIR)/ido.mk \
     $(LOCAL_DIR)/jewel.mk \
     $(LOCAL_DIR)/jfltecri.mk \
     $(LOCAL_DIR)/jfltecsp.mk \
@@ -61,6 +62,7 @@ PRODUCT_MAKEFILES := \
     $(LOCAL_DIR)/osprey.mk \
     $(LOCAL_DIR)/otus.mk \
     $(LOCAL_DIR)/onyx.mk \
+    $(LOCAL_DIR)/pme.mk \
     $(LOCAL_DIR)/peregrine.mk \
     $(LOCAL_DIR)/serranodsdd.mk \
     $(LOCAL_DIR)/shamu.mk \
