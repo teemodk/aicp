@@ -23,7 +23,7 @@ BOARD_NEEDS_VENDORIMAGE_SYMLINK := true
 KERNEL_TOOLCHAIN := $(ANDROID_BUILD_TOP)/prebuilts/gcc/$(HOST_OS)-x86/aarch64/aarch64-linux-android-4.9/bin
 KERNEL_TOOLCHAIN_PREFIX := aarch64-linux-android-
 TARGET_KERNEL_SOURCE := kernel/htc/flounder
-TARGET_KERNEL_CONFIG := flounder_defconfig
+TARGET_KERNEL_CONFIG := cyanogenmod_flounder_defconfig
 BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
 BOARD_KERNEL_CMDLINE := androidboot.selinux=enforcing
 TARGET_PREBUILT_KERNEL := false
@@ -50,9 +50,9 @@ PRODUCT_BUILD_PROP_OVERRIDES += \
 
 PRODUCT_BUILD_PROP_OVERRIDES += \
     PRODUCT_NAME=flounder \
-    BUILD_FINGERPRINT=google/volantis/flounder:7.0/NRD91D/3234828:user/release-keys \
-    PRIVATE_BUILD_DESC="volantis-user 7.0 NRD91D 3234828 release-keys" \
-    BUILD_ID=NRD91D
+    BUILD_FINGERPRINT=google/volantis/flounder:7.0/NRD91N/3318108:user/release-keys \
+    PRIVATE_BUILD_DESC="volantis-user 7.0 NRD91N 3318108 release-keys" \
+    BUILD_ID=NRD91N
 
 # Boot animation
 TARGET_SCREEN_HEIGHT := 2048
