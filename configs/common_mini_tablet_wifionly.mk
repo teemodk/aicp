@@ -1,10 +1,7 @@
 SUPERUSER_EMBEDDED := true
 
 # Common overlay
-DEVICE_PACKAGE_OVERLAYS += vendor/aicp/overlay/common
-
-# Common dictionaries
-PRODUCT_PACKAGE_OVERLAYS += vendor/aicp/overlay/dictionaries
+DEVICE_PACKAGE_OVERLAYS += vendor/aicp/overlay/common_tablet
 
 # Inherit common product packages
 -include vendor/aicp/configs/common_packages.mk
@@ -12,14 +9,6 @@ PRODUCT_PACKAGE_OVERLAYS += vendor/aicp/overlay/dictionaries
 PRODUCT_PROPERTY_OVERRIDES += \
     media.sf.omx-plugin=libffmpeg_omx.so \
     media.sf.extractor-plugin=libffmpeg_extractor.so
-
-# Storage manager
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.storage_manager.enabled=true
-
-# Themes
-PRODUCT_PACKAGES += \
-    HexoLibre
 
 PRODUCT_BOOT_JARS += \
     org.dirtyunicorns.utils
@@ -46,10 +35,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.build.selinux=1
-
-# Thank you, please drive thru!
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.sys.dun.override=0
 
 # Backup Tool
 PRODUCT_COPY_FILES += \
@@ -97,13 +82,8 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     frameworks/base/data/keyboards/Vendor_045e_Product_028e.kl:system/usr/keylayout/Vendor_045e_Product_0719.kl
 
-# Ringtones
-PRODUCT_COPY_FILES += \
-    vendor/aicp/prebuilt/common/ringtones/Jungle.ogg:/system/media/audio/ringtones/Jungle.ogg
-
 # Default ringtone
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.config.ringtone=Scarabaeus.ogg \
     ro.config.notification_sound=Antimony.ogg \
     ro.config.alarm_alert=Scandium.ogg
 
@@ -131,7 +111,7 @@ endif
 #    vendor/aicp/prebuilt/common/lib/libjni_latinimegoogle.so:system/lib/libjni_latinimegoogle.so
 
 # Include AICP LatinIME dictionaries
-PRODUCT_PACKAGE_OVERLAYS += vendor/aicp/overlay/dictionaries
+#PRODUCT_PACKAGE_OVERLAYS += vendor/aicp/overlay/dictionaries
 
 # Kernel Adiutor App
 # PRODUCT_COPY_FILES += \
@@ -139,11 +119,11 @@ PRODUCT_PACKAGE_OVERLAYS += vendor/aicp/overlay/dictionaries
 
 # AdAway App
 # PRODUCT_COPY_FILES += \
-    vendor/aicp/prebuilt/common/app/AdAway.apk:system/priv-app/AdAway/AdAway.apk
+#    vendor/aicp/prebuilt/common/app/AdAway.apk:system/priv-app/AdAway/AdAway.apk
 
 # AICP memo App
 # PRODUCT_COPY_FILES += \
-    vendor/aicp/prebuilt/common/app/AICP-memo.apk:system/priv-app/AICP-memo/AICP-memo.apk
+#    vendor/aicp/prebuilt/common/app/AICP-memo.apk:system/priv-app/AICP-memo/AICP-memo.apk
 
 # -include vendor/cyngn/product.mk
 
