@@ -2,6 +2,7 @@ PRODUCT_MAKEFILES := \
     $(LOCAL_DIR)/amami.mk \
     $(LOCAL_DIR)/angler.mk \
     $(LOCAL_DIR)/armani.mk \
+    $(LOCAL_DIR)/athene.mk \
     $(LOCAL_DIR)/bacon.mk \
     $(LOCAL_DIR)/bullhead.mk \
     $(LOCAL_DIR)/cancro.mk \
@@ -21,6 +22,7 @@ PRODUCT_MAKEFILES := \
     $(LOCAL_DIR)/endeavoru.mk \
     $(LOCAL_DIR)/ether.mk \
     $(LOCAL_DIR)/falcon.mk \
+    $(LOCAL_DIR)/ferrari.mk \
     $(LOCAL_DIR)/flounder.mk \
     $(LOCAL_DIR)/fugu.mk \
     $(LOCAL_DIR)/g2m.mk \
@@ -47,8 +49,10 @@ PRODUCT_MAKEFILES := \
     $(LOCAL_DIR)/jfltexx.mk \
     $(LOCAL_DIR)/kenzo.mk \
     $(LOCAL_DIR)/klimtlte.mk \
+    $(LOCAL_DIR)/kltekdi.mk \
     $(LOCAL_DIR)/klimtwifi.mk \
     $(LOCAL_DIR)/l01f.mk \
+    $(LOCAL_DIR)/libra.mk \
     $(LOCAL_DIR)/ls980.mk \
     $(LOCAL_DIR)/lettuce.mk \
     $(LOCAL_DIR)/lux.mk \
@@ -63,6 +67,7 @@ PRODUCT_MAKEFILES := \
     $(LOCAL_DIR)/osprey.mk \
     $(LOCAL_DIR)/otus.mk \
     $(LOCAL_DIR)/onyx.mk \
+    $(LOCAL_DIR)/peach.mk \
     $(LOCAL_DIR)/peregrine.mk \
     $(LOCAL_DIR)/seed.mk \
     $(LOCAL_DIR)/serranodsdd.mk \
