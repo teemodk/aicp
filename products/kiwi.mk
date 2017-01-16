@@ -1,4 +1,4 @@
-# Copyright (C) 2016 The CyanogenMod Project
+# Copyright (C) 2017 The AICP Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,33 +12,30 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Inherit from those products. Most specific first.
-$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
+$(call inherit-product, device/huawei/kiwi/full_kiwi.mk)
 
-# Inherit from oneplus3 device
-$(call inherit-product, device/oneplus/oneplus3/device.mk)
-
-# Inherit some common AICP stuff.
+# Inherit some common AICP stuff
 $(call inherit-product, vendor/aicp/configs/common.mk)
 
 # Inherit telephony stuff
 $(call inherit-product, vendor/aicp/configs/telephony.mk)
 
-PRODUCT_NAME := aicp_oneplus3
-PRODUCT_DEVICE := oneplus3
-PRODUCT_MANUFACTURER := OnePlus
-PRODUCT_BRAND := OnePlus
+# Device identifier. This must come after all inclusions
+PRODUCT_DEVICE:= kiwi
+PRODUCT_NAME := aicp_kiwi
+PRODUCT_BRAND:= HONOR
+PRODUCT_MODEL := KIW-L24
+PRODUCT_MANUFACTURER := HUAWEI
 
-PRODUCT_GMS_CLIENTID_BASE := android-oneplus
+PRODUCT_GMS_CLIENTID_BASE := android-huawei
 
-TARGET_VENDOR := oneplus
+
+## Use the latest approved GMS identifiers unless running a signed build
+PRODUCT_BUILD_PROP_OVERRIDES += \
+    BUILD_FINGERPRINT=huawei/kiwi/5x:7.1.1/MHC19Q/ZNH2KAS1KN:user/release-keys \
+    PRIVATE_BUILD_DESC="kiwi-user 7.1.1 MHC19Q ZNH2KAS1KN release-keys"
 
 # AICP Device Maintainers
 PRODUCT_BUILD_PROP_OVERRIDES += \
-    DEVICE_MAINTAINERS="Saatvik Shukla"
+    DEVICE_MAINTAINERS="Gopinaidu Annam (gopinaidu77), Kaan Külahlı (Rygebin)"
 
-# Boot animation
-TARGET_SCREEN_HEIGHT := 1920
-TARGET_SCREEN_WIDTH := 1080
--include vendor/aicp/configs/bootanimation.mk
