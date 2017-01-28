@@ -1,4 +1,5 @@
 PRODUCT_MAKEFILES := \
+    $(LOCAL_DIR)/A6020.mk \
     $(LOCAL_DIR)/amami.mk \
     $(LOCAL_DIR)/angler.mk \
     $(LOCAL_DIR)/armani.mk \
@@ -63,9 +64,11 @@ PRODUCT_MAKEFILES := \
     $(LOCAL_DIR)/m7vzw.mk \
     $(LOCAL_DIR)/mako.mk \
     $(LOCAL_DIR)/manta.mk \
+    $(LOCAL_DIR)/marlin.mk \
     $(LOCAL_DIR)/nicki.mk \
     $(LOCAL_DIR)/oneplus2.mk \
     $(LOCAL_DIR)/oneplus3.mk \
+    $(LOCAL_DIR)/oneplus3t.mk \
     $(LOCAL_DIR)/osprey.mk \
     $(LOCAL_DIR)/otus.mk \
     $(LOCAL_DIR)/onyx.mk \
