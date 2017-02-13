@@ -47,10 +47,14 @@ PRODUCT_PACKAGES += \
     PhotoPhase \
     procmem \
     procrank \
-    su \
-    Superuser \
     Torch \
     VisualizationWallpapers
+
+# Conditionally build in su
+ifeq ($(WITH_SU),true)
+PRODUCT_PACKAGES += \
+    su
+endif
 
 # OmniRom packages
 PRODUCT_PACKAGES += \
@@ -144,3 +148,7 @@ PRODUCT_PACKAGES += \
 # OMS Verified
 PRODUCT_PROPERTY_OVERRIDES := \
     ro.substratum.verified=true
+
+# Magisk Manager
+PRODUCT_PACKAGES += \
+    MagiskManager
