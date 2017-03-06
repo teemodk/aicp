@@ -1,4 +1,5 @@
 PRODUCT_MAKEFILES := \
+    $(LOCAL_DIR)/a6000.mk \
     $(LOCAL_DIR)/A6020.mk \
     $(LOCAL_DIR)/amami.mk \
     $(LOCAL_DIR)/angler.mk \
@@ -66,6 +67,7 @@ PRODUCT_MAKEFILES := \
     $(LOCAL_DIR)/mako.mk \
     $(LOCAL_DIR)/manta.mk \
     $(LOCAL_DIR)/marlin.mk \
+    $(LOCAL_DIR)/mido.mk \
     $(LOCAL_DIR)/nicki.mk \
     $(LOCAL_DIR)/oneplus2.mk \
     $(LOCAL_DIR)/oneplus3.mk \
@@ -100,11 +102,13 @@ PRODUCT_MAKEFILES := \
     $(LOCAL_DIR)/vs920.mk \
     $(LOCAL_DIR)/vs980.mk \
     $(LOCAL_DIR)/vs985.mk \
+    $(LOCAL_DIR)/w7.mk \
     $(LOCAL_DIR)/wt88047.mk \
     $(LOCAL_DIR)/wx_na_wf.mk \
     $(LOCAL_DIR)/xt1053.mk \
     $(LOCAL_DIR)/xt1060.mk \
     $(LOCAL_DIR)/Z008.mk \
     $(LOCAL_DIR)/Z00A.mk \
+    $(LOCAL_DIR)/Z00L.mk \
     $(LOCAL_DIR)/z3c.mk \
     $(LOCAL_DIR)/Z00ED.mk 

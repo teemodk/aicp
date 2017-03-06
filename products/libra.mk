@@ -46,6 +46,12 @@ TARGET_SCREEN_WIDTH := 1080
 
 # AICP Device Maintainers
 PRODUCT_BUILD_PROP_OVERRIDES += \
-    DEVICE_MAINTAINERS="diegocr (Diego Casasnovas) & csolanol (Carlos Solano)"
+    DEVICE_MAINTAINERS="Demon000 (Cosmin Tanislav) & csolanol (Carlos Solano)"
 
-TARGET_OTA_ASSERT_DEVICE := libra,aqua
+# Fingerprint
+PRODUCT_BUILD_PROP_OVERRIDES += \
+    BUILD_FINGERPRINT="Xiaomi/libra/libra:7.0/NRD90M/7.2.16:user/release-keys" \
+    PRIVATE_BUILD_DESC="libra-user 7.0 NRD90M 7.2.16 release-keys"
+
+
+TARGET_OTA_ASSERT_DEVICE := libra
