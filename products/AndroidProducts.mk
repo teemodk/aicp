@@ -34,6 +34,7 @@ PRODUCT_MAKEFILES := \
     $(LOCAL_DIR)/gts210vewifi.mk \
     $(LOCAL_DIR)/h811.mk \
     $(LOCAL_DIR)/h815.mk \
+    $(LOCAL_DIR)/h918.mk \
     $(LOCAL_DIR)/hammerhead.mk \
     $(LOCAL_DIR)/hammerheadcaf.mk \
     $(LOCAL_DIR)/himaul.mk \
@@ -79,6 +80,7 @@ PRODUCT_MAKEFILES := \
     $(LOCAL_DIR)/pme.mk \
     $(LOCAL_DIR)/peregrine.mk \
     $(LOCAL_DIR)/r7plus.mk \
+    $(LOCAL_DIR)/s2.mk \
     $(LOCAL_DIR)/seed.mk \
     $(LOCAL_DIR)/serranodsdd.mk \
     $(LOCAL_DIR)/shamu.mk \

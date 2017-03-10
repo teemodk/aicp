@@ -141,9 +141,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_BOOT_JARS += \
     telephony-ext
 
-# OMS MASQUERADE
+# OMS THEMEINTERFACER
 PRODUCT_PACKAGES += \
-   masquerade
+   ThemeInterfacer
 
 # OMS Verified
 PRODUCT_PROPERTY_OVERRIDES := \
@@ -152,3 +152,8 @@ PRODUCT_PROPERTY_OVERRIDES := \
 # Magisk Manager
 PRODUCT_PACKAGES += \
     MagiskManager
+
+#OmniJaws 
+PRODUCT_PACKAGES += \
+    OmniJaws
+
