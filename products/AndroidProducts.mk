@@ -80,6 +80,7 @@ PRODUCT_MAKEFILES := \
     $(LOCAL_DIR)/pme.mk \
     $(LOCAL_DIR)/peregrine.mk \
     $(LOCAL_DIR)/r7plus.mk \
+    $(LOCAL_DIR)/r7sf.mk \
     $(LOCAL_DIR)/s2.mk \
     $(LOCAL_DIR)/seed.mk \
     $(LOCAL_DIR)/serranodsdd.mk \
