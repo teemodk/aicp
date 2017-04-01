@@ -1,5 +1,5 @@
-#
-# Copyright (C) 2017 The LineageOS Project
+# Copyright (C) 2016, The CyanogenMod Project
+#           (C) 2017, The LineageOS Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,28 +12,27 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
 
-# Inherit Stuffs From a6000
-$(call inherit-product, device/lenovo/a6000/full_a6000.mk)
+$(call inherit-product, device/zte/axon7/full_axon7.mk)
 
-# Inherit some common AICP stuff.
+# Inherit some common LineageOS stuff.
 $(call inherit-product, vendor/aicp/configs/common.mk)
 
 # Inherit telephony stuff
 $(call inherit-product, vendor/aicp/configs/telephony.mk)
-TARGET_BOARD_PLATFORM_VARIANT := msm8916
 
-PRODUCT_NAME := aicp_a6000
-BOARD_VENDOR := Lenovo
+PRODUCT_NAME := aicp_axon7
 
-PRODUCT_GMS_CLIENTID_BASE := android-lenovo
-
-# AICP Device Maintainer
 PRODUCT_BUILD_PROP_OVERRIDES += \
-    DEVICE_MAINTAINERS="Harshit Jain (dev_harsh1998)"
+    PRODUCT_NAME="P996A01_N" \
+    BUILD_FINGERPRINT="ZTE/P996A01_N/ailsa_ii:7.0/NRD90M/20170128.052618:user/release-keys" \
+    PRIVATE_BUILD_DESC="P996A01_N-user 7.0 NRD90M 20170128.052618 release-keys"
+
+# AICP Device Maintainers
+PRODUCT_BUILD_PROP_OVERRIDES += \
+    DEVICE_MAINTAINERS="Faradis (Druboo666) "
 
 # Boot animation
-TARGET_SCREEN_WIDTH := 720
-TARGET_SCREEN_HEIGHT := 1280
+TARGET_SCREEN_HEIGHT := 2560
+TARGET_SCREEN_WIDTH := 1440
 -include vendor/aicp/configs/bootanimation.mk

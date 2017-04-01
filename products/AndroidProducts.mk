@@ -5,6 +5,7 @@ PRODUCT_MAKEFILES := \
     $(LOCAL_DIR)/angler.mk \
     $(LOCAL_DIR)/armani.mk \
     $(LOCAL_DIR)/athene.mk \
+    $(LOCAL_DIR)/axon7.mk \
     $(LOCAL_DIR)/bacon.mk \
     $(LOCAL_DIR)/bullhead.mk \
     $(LOCAL_DIR)/cancro.mk \
@@ -76,6 +77,7 @@ PRODUCT_MAKEFILES := \
     $(LOCAL_DIR)/osprey.mk \
     $(LOCAL_DIR)/otus.mk \
     $(LOCAL_DIR)/onyx.mk \
+    $(LOCAL_DIR)/p2a42.mk \
     $(LOCAL_DIR)/peach.mk \
     $(LOCAL_DIR)/pme.mk \
     $(LOCAL_DIR)/peregrine.mk \
