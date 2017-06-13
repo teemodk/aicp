@@ -24,6 +24,7 @@ PRODUCT_PACKAGES += \
     CMFileManager \
     CMSettingsProvider \
     Eleven \
+    Jelly \
     ExactCalculator \
     LiveLockScreenService \
     LockClock \
@@ -48,7 +49,8 @@ PRODUCT_PACKAGES += \
     procmem \
     procrank \
     Torch \
-    VisualizationWallpapers
+    VisualizationWallpapers \
+    Turbo
 
 # Conditionally build in su
 ifeq ($(WITH_SU),true)
@@ -153,7 +155,6 @@ PRODUCT_PROPERTY_OVERRIDES := \
 PRODUCT_PACKAGES += \
     MagiskManager
 
-#OmniJaws 
+#OmniJaws
 PRODUCT_PACKAGES += \
     OmniJaws
-

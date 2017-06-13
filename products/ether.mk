@@ -21,15 +21,15 @@ PRODUCT_DEVICE := ether
 
 # AICP Device Info
 PRODUCT_BUILD_PROP_OVERRIDES += \
-    DEVICE_MAINTAINERS="Darragh McGee (DarkExistence)"
+    DEVICE_MAINTAINERS="Devin Sanchez (Prophentes) , Darragh McGee (DarkExistence)"
 
 PRODUCT_BRAND := Nextbit
 PRODUCT_MODEL := Robin
 PRODUCT_MANUFACTURER := Nextbit
 
 PRODUCT_BUILD_PROP_OVERRIDES += \
-    BUILD_FINGERPRINT=Nextbit/ether/ether:6.0.1/MMB29M/00WW_1_350:user/release-keys \
-    PRIVATE_BUILD_DESC="ether-user 6.0.1 MMB29M 00WW_1_350 release-keys"
+    BUILD_FINGERPRINT=Nextbit/ether/ether:7.0/Robin_Nougat_88/00WW_Jenkins_88:user/release-keys \
+    PRIVATE_BUILD_DESC="ether-user 7.0 Robin_Nougat_88 00WW_Jenkins_88 release-keys"
 
 # Boot animation
 TARGET_SCREEN_HEIGHT := 1920

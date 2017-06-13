@@ -9,6 +9,7 @@ PRODUCT_MAKEFILES := \
     $(LOCAL_DIR)/bacon.mk \
     $(LOCAL_DIR)/bullhead.mk \
     $(LOCAL_DIR)/cancro.mk \
+    $(LOCAL_DIR)/cedric.mk \
     $(LOCAL_DIR)/chagalllte.mk \
     $(LOCAL_DIR)/chagallwifi.mk \
     $(LOCAL_DIR)/clark.mk \
@@ -31,6 +32,7 @@ PRODUCT_MAKEFILES := \
     $(LOCAL_DIR)/g2m.mk \
     $(LOCAL_DIR)/geehrc.mk \
     $(LOCAL_DIR)/gemini.mk \
+    $(LOCAL_DIR)/griffin.mk \
     $(LOCAL_DIR)/grouper.mk \
     $(LOCAL_DIR)/gts210vewifi.mk \
     $(LOCAL_DIR)/h811.mk \
@@ -82,6 +84,7 @@ PRODUCT_MAKEFILES := \
     $(LOCAL_DIR)/peach.mk \
     $(LOCAL_DIR)/pme.mk \
     $(LOCAL_DIR)/peregrine.mk \
+    $(LOCAL_DIR)/potter.mk \
     $(LOCAL_DIR)/r7plus.mk \
     $(LOCAL_DIR)/r7sf.mk \
     $(LOCAL_DIR)/s2.mk \
