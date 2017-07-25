@@ -1,5 +1,4 @@
-#
-# Copyright (C) 2017 The LineageOS Project
+# Copyright (C) 2016 The CyanogenMod Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,33 +11,39 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
 
-# Inherit Stuffs From a6000
-$(call inherit-product, device/lenovo/a6000/full_a6000.mk)
+# Inherit from those products. Most specific first.
+$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
+
+# Inherit from oneplus3 device
+$(call inherit-product, device/oneplus/cheeseburger/device.mk)
 
 # Inherit some common AICP stuff.
 $(call inherit-product, vendor/aicp/configs/common.mk)
 
 # Inherit telephony stuff
 $(call inherit-product, vendor/aicp/configs/telephony.mk)
-TARGET_BOARD_PLATFORM_VARIANT := msm8916
 
-PRODUCT_NAME := aicp_a6000
-BOARD_VENDOR := Lenovo
+BOARD_VENDOR := OnePlus
+PRODUCT_BRAND := OnePlus
+PRODUCT_DEVICE := cheeseburger
+PRODUCT_NAME := aicp_cheeseburger
+PRODUCT_MANUFACTURER := OnePlus
+PRODUCT_MODEL := OnePlus 5
 
-PRODUCT_GMS_CLIENTID_BASE := android-lenovo
+PRODUCT_GMS_CLIENTID_BASE := android-oneplus
 
-# Build fingerprint
+TARGET_VENDOR := oneplus
+
+# AICP Device Maintainers
 PRODUCT_BUILD_PROP_OVERRIDES += \
-    BUILD_FINGERPRINT="Lenovo/Kraft-A6000/Kraft-A6000:5.0.2/LRX22G/Kraft-A6000_S061_160727:user/release-keys" \
-    PRIVATE_BUILD_DESC="Kraft-A6000-user 5.0.2 LRX22G Kraft-A6000_S061_160727 release-keys"
+    DEVICE_MAINTAINERS="Darragh McGee (DarkExistence) , Erwan Leboucher (geneisxx) , SpiritCroc"
 
-# AICP Device Maintainer
 PRODUCT_BUILD_PROP_OVERRIDES += \
-    DEVICE_MAINTAINERS="Harshit Jain (dev_harsh1998)"
+BUILD_FINGERPRINT=OnePlus/OnePlus5/OnePlus5:7.1.1/NMF26X/06241119:user/release-keys
 
 # Boot animation
-TARGET_SCREEN_WIDTH := 720
-TARGET_SCREEN_HEIGHT := 1280
+TARGET_SCREEN_HEIGHT := 1920
+TARGET_SCREEN_WIDTH := 1080
 -include vendor/aicp/configs/bootanimation.mk
